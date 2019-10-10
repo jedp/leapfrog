@@ -136,14 +136,7 @@ void dontloop() {
 }
 
 uint32_t right_now = micros();
-uint32_t last_read_row[4] = { right_now, right_now, right_now, right_now };
-uint32_t this_read_row[4] = { right_now, right_now, right_now, right_now };
-uint32_t last_gap_row[4] = { 32000, 32000, 32000, 32000 };
-uint32_t this_gap_row[4] = { 0, 0, 0, 0 };
-uint32_t rows[4] = { ROW0, ROW1, ROW2, ROW3 };
-uint32_t reading_row = -1;
-
-uint32_t debounce_micros = 5000;
+uint32_t debounce_micros = 3000;
 
 uint32_t last_read_row3 = 0;
 uint32_t this_read_row3 = right_now; 
@@ -162,27 +155,34 @@ uint32_t led_timer = 0;
 
 void loop() {
 
-  right_now = micros();
 
-  // No loops or arrays. Slight gain by unrolling everything.
-  if ((right_now > last_read_row3 + debounce_micros) && (digitalRead(ROW3) == HIGH)) {
-    last_read_row3 = this_read_row3;
-    this_read_row3 = right_now;
-    last_gap_row3 = this_gap_row3;
-    this_gap_row3 = this_read_row3 - last_read_row3;
-    if (this_gap_row3 > 1000 && this_gap_row3 < 9000 && last_gap_row3 > 28000) {
-      reading_row3 = 1;
+
+  if (digitalRead(ROW3) == HIGH) {
+    right_now = micros();
+    // No loops or arrays. Slight gain by unrolling everything.
+    if (right_now > last_read_row3 + debounce_micros) {
+      last_read_row3 = this_read_row3;
+      this_read_row3 = right_now;
+      last_gap_row3 = this_gap_row3;
+      this_gap_row3 = this_read_row3 - last_read_row3;
+      if (this_gap_row3 > 3000 && this_gap_row3 < 9000 && last_gap_row3 > 28000) {
+        reading_row3 = 1;
+      }
     }
   }
 
   // No loops or arrays. Slight gain by unrolling everything.
-  if ((right_now > last_read_row2 + debounce_micros) && (digitalRead(ROW2) == HIGH)) {
-    last_read_row2 = this_read_row2;
-    this_read_row2 = right_now;
-    last_gap_row2 = this_gap_row2;
-    this_gap_row2 = this_read_row2 - last_read_row2;
-    if (this_gap_row2 > 1000 && this_gap_row2 < 9000 && last_gap_row2 > 28000) {
-      reading_row2 = 1;
+  if (digitalRead(ROW2) == HIGH) {
+    right_now = micros();
+
+    if (right_now > last_read_row2 + debounce_micros) {
+      last_read_row2 = this_read_row2;
+      this_read_row2 = right_now;
+      last_gap_row2 = this_gap_row2;
+      this_gap_row2 = this_read_row2 - last_read_row2;
+      if (this_gap_row2 > 3000 && this_gap_row2 < 9000 && last_gap_row2 > 28000) {
+        reading_row2 = 1;
+      }
     }
   }
 
