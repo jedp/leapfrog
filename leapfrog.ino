@@ -136,18 +136,18 @@ void dontloop() {
 }
 
 uint32_t right_now = micros();
-uint32_t debounce_micros = 3000;
+uint32_t debounce_micros = 4000;
 
 uint32_t last_read_row3 = 0;
 uint32_t this_read_row3 = right_now; 
-uint32_t last_gap_row3 = 32000;
-uint32_t this_gap_row3 = 32000;
+uint32_t last_gap_row3 = 33000;
+uint32_t this_gap_row3 = 33000;
 uint32_t reading_row3 = 0;
 
 uint32_t last_read_row2 = 0;
 uint32_t this_read_row2 = right_now; 
-uint32_t last_gap_row2 = 32000;
-uint32_t this_gap_row2 = 32000;
+uint32_t last_gap_row2 = 33000;
+uint32_t this_gap_row2 = 33000;
 uint32_t reading_row2 = 0;
 
 const uint32_t led_timer_max = 10000;
@@ -165,7 +165,7 @@ void loop() {
       this_read_row3 = right_now;
       last_gap_row3 = this_gap_row3;
       this_gap_row3 = this_read_row3 - last_read_row3;
-      if (this_gap_row3 > 3000 && this_gap_row3 < 9000 && last_gap_row3 > 28000) {
+      if (this_gap_row3 > 4000 && this_gap_row3 < 10000 && last_gap_row3 > 26000) {
         reading_row3 = 1;
       }
     }
@@ -180,7 +180,7 @@ void loop() {
       this_read_row2 = right_now;
       last_gap_row2 = this_gap_row2;
       this_gap_row2 = this_read_row2 - last_read_row2;
-      if (this_gap_row2 > 3000 && this_gap_row2 < 9000 && last_gap_row2 > 28000) {
+      if (this_gap_row2 > 4000 && this_gap_row2 < 10000 && last_gap_row2 > 26000) {
         reading_row2 = 1;
       }
     }
